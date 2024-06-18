@@ -1,0 +1,39 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Use the menu to navigate.</p>
+</div>
+
+<nav>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/Home/Users">Users</a></li>
+        <li><a href="/Home/Incomes">Incomes</a></li>
+        <li><a href="/Home/Expenses">Expenses</a></li>
+    </ul>
+</nav>
+
+<style>
+    nav {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    nav ul li {
+        display: inline;
+        margin-right: 15px;
+    }
+    nav ul li a {
+        text-decoration: none;
+        color: #007bff;
+    }
+    nav ul li a:hover {
+        text-decoration: underline;
+    }
+</style>

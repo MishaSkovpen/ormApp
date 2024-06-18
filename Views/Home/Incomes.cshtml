@@ -1,0 +1,27 @@
+@model IEnumerable<ormApp.Models.Income>
+
+@{
+    ViewData["Title"] = "Incomes";
+}
+
+<h2>Incomes</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Source</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var income in Model)
+        {
+            <tr>
+                <td>@income.Amount</td>
+                <td>@income.Date.ToShortDateString()</td>
+                <td>@income.Source</td>
+            </tr>
+        }
+    </tbody>
+</table>
