@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace ormApp.Models
 {
@@ -18,6 +20,9 @@ namespace ormApp.Models
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Address { get; set; }
+
+        [MaxLength(100)]
+        public string Residence { get; set; }// Додано атрибут residence
 
         public virtual ICollection<Expense> Expenses { get; set; }
         public virtual ICollection<Income> Incomes { get; set; }

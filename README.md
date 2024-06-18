@@ -36,6 +36,13 @@ CREATE TABLE Expenses (
 );
 ```
 
+## Створення проекту ASP.NET Core
+
+```powershell
+dotnet new webapp -o ormApp
+cd ormApp
+```
+
 ## Встановлення інструментів для Database First
 
 ```powershell
@@ -46,16 +53,42 @@ dotnet add package Pomelo.EntityFrameworkCore.MySql --version 6.*
 dotnet tool install --global dotnet-ef --version 7.0.15
 ```
 
-## Створення проекту ASP.NET Core
-
-```powershell
-dotnet new webapp -o ormApp
-cd ormApp
-```
-
 ## Генерація моделей за допомогою Scaffold-DbContext
 ```
 dotnet ef dbcontext scaffold "Server=localhost;Database=finance;User ID=svc_finance;Password=passw0rd;" Pomelo.EntityFrameworkCore.MySql -o Models
+```
 
 ##  Запуск проекту
 dotnet run
+
+## Створення міграцій
+
+### Створення початкової міграції
+```powershell
+dotnet ef migrations add InitialCreate  --context ormApp.Models.AppDbContext
+```
+### Застосування міграції до бази даних
+dotnet ef database update --context ormApp.Models.AppDbContext
+
+### додаємо атрибут residence до моделі User
+
+```cs
+        [MaxLength(100)]
+        public string Residence { get; set; }// Додано атрибут residence
+```
+
+### Створення міграції
+```powershell
+dotnet ef migrations add AddResidenceToUser --context ormApp.Models.AppDbContext
+```
+
+### Застосування міграції до бази даних:
+```powershell
+dotnet ef database update --context ormApp.Models.AppDbContext
+```
+
+
+# Створення нових записів в БД.
+# Видалення записів з БД.
+# Каскадне видалення записів з БД. Після проведення операції потрібно відображати обидві таблиці, до яких застосовувались зміни.
+# Внесення змін в записи.

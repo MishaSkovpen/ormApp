@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using ormApp.Models;
 using System.Linq;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace ormApp.Controllers
 {
     public class HomeController : Controller
@@ -32,8 +34,12 @@ namespace ormApp.Controllers
 
         public IActionResult Expenses()
         {
-            var expenses = _context.Expenses.ToList();
+            var expenses = _context.Expenses
+                                   .Include(e => e.User) // Завантаження пов'язаної моделі User
+                                   .ToList();
             return View(expenses);
         }
+        
     }
+
 }

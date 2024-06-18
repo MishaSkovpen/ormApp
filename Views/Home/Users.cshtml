@@ -4,7 +4,22 @@
     ViewData["Title"] = "Users";
 }
 
-<h2>Users</h2>
+<!-- Посилання на ваш файл стилів -->
+<link rel="stylesheet" href="~/css/styles.css" />
+
+<div class="text-center">
+    <h1 class="display-4">Users</h1>
+    <p>Use the menu to navigate.</p>
+</div>
+
+<nav>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/Home/Users">Users</a></li>
+        <li><a href="/Home/Incomes">Incomes</a></li>
+        <li><a href="/Home/Expenses">Expenses</a></li>
+    </ul>
+</nav>
 
 <table class="table">
     <thead>

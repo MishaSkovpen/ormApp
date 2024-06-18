@@ -12,6 +12,7 @@
             <th>Amount</th>
             <th>Date</th>
             <th>Category</th>
+            <th>User</th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +22,7 @@
                 <td>@expense.Amount</td>
                 <td>@expense.Date.ToShortDateString()</td>
                 <td>@expense.CategoryId</td>
+                <td>@expense.User.Username</td> <!-- Відображення username -->
             </tr>
         }
     </tbody>
