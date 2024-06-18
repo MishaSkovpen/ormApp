@@ -1,7 +1,9 @@
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+//using ormApp.Data;
 using ormApp.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ormApp.Controllers
 {
@@ -14,42 +16,20 @@ namespace ormApp.Controllers
             _context = context;
         }
 
-        // GET: Users
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var users = _context.Users.ToList();
-            return View(users);
+            return View(await _context.Users.ToListAsync());
         }
 
-        // GET: Users/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Users/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(User user)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(user);
-                _context.SaveChanges();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(user);
-        }
-
-        // GET: Users/Edit/1
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = _context.Users.Find(id);
+            var user = await _context.Users
+                .FirstOrDefaultAsync(m => m.UserId == id);
             if (user == null)
             {
                 return NotFound();
@@ -58,10 +38,42 @@ namespace ormApp.Controllers
             return View(user);
         }
 
-        // POST: Users/Edit/1
+        public IActionResult Create()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, User user)
+        public async Task<IActionResult> Create([Bind("UserId,Username,Password,Email,FirstName,LastName,Address,Residence")] User user)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(user);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(user);
+        }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("UserId,Username,Password,Email,FirstName,LastName,Address,Residence")] User user)
         {
             if (id != user.UserId)
             {
@@ -73,7 +85,7 @@ namespace ormApp.Controllers
                 try
                 {
                     _context.Update(user);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -91,16 +103,15 @@ namespace ormApp.Controllers
             return View(user);
         }
 
-        // GET: Users/Delete/1
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = _context.Users
-                               .FirstOrDefault(m => m.UserId == id);
+            var user = await _context.Users
+                .FirstOrDefaultAsync(m => m.UserId == id);
             if (user == null)
             {
                 return NotFound();
@@ -109,14 +120,13 @@ namespace ormApp.Controllers
             return View(user);
         }
 
-        // POST: Users/Delete/1
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var user = _context.Users.Find(id);
+            var user = await _context.Users.FindAsync(id);
             _context.Users.Remove(user);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
