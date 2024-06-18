@@ -4,10 +4,13 @@
     ViewData["Title"] = "Users";
 }
 
+<!-- Посилання на ваш файл стилів -->
+<link rel="stylesheet" href="~/css/users-styles.css" />
+
 <h1>Users</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+    <a asp-action="Create" asp-controller="Users" class="btn btn-primary">Create New</a>
 </p>
 
 <table class="table">
@@ -29,9 +32,9 @@
                 <td>@item.FirstName</td>
                 <td>@item.LastName</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.UserId" class="btn btn-warning">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.UserId" class="btn btn-info">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.UserId" class="btn btn-danger">Delete</a>
+                    <a asp-controller="Users" asp-action="Edit" asp-route-id="@item.UserId" class="btn btn-warning">Edit</a> |
+                    <a asp-controller="Users" asp-action="Details" asp-route-id="@item.UserId" class="btn btn-info">Details</a> |
+                    <a asp-controller="Users" asp-action="Delete" asp-route-id="@item.UserId" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }

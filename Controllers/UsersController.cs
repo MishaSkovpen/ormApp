@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-//using ormApp.Data;
 using ormApp.Models;
 using System.Linq;
 using System.Threading.Tasks;
