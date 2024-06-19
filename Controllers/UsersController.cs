@@ -51,20 +51,37 @@ namespace ormApp.Controllers
                 return NotFound();
             }
 
-            // Використовуйте Eager loading (Include) для завантаження пов'язаних даних
+             
             var user = await _context.Users
-                .Include(u => u.Incomes)
-                .Include(u => u.Expenses)
                 .FirstOrDefaultAsync(m => m.UserId == id);
-
             if (user == null)
             {
                 return NotFound();
-            }
+            }            
+            
+            // Explicit Loading
+            _context.Entry(user).Collection(u => u.Incomes).Load();
+            _context.Entry(user).Collection(u => u.Expenses).Load();
 
             return View(user);
         }
 
+
+        // Метод для отримання суми доходів для кожного користувача
+        public async Task<IActionResult> TotalIncomePerUser()
+        {
+            var totalIncome = await _context.Users
+                .Select(u => new 
+                {
+                    u.Username,
+                    TotalIncome = u.Incomes.Sum(i => i.Amount)
+                })
+                .ToListAsync();
+
+            return View(totalIncome);
+        }
+
+        
         public IActionResult Create()
         {
             return View();
