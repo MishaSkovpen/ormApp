@@ -20,6 +20,7 @@ namespace ormApp.Controllers
             return View(await _context.Users.ToListAsync());
         }
 
+        /* Lazy Loading
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -39,7 +40,30 @@ namespace ormApp.Controllers
             var expenses = user.Expenses.ToList();
 
             return View(user);
-        }        
+        }  
+        */      
+
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            // Використовуйте Eager loading (Include) для завантаження пов'язаних даних
+            var user = await _context.Users
+                .Include(u => u.Incomes)
+                .Include(u => u.Expenses)
+                .FirstOrDefaultAsync(m => m.UserId == id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
 
         public IActionResult Create()
         {
