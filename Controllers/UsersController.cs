@@ -34,8 +34,12 @@ namespace ormApp.Controllers
                 return NotFound();
             }
 
+            // Використовуйте Lazy Loading для завантаження пов'язаних даних
+            var incomes = user.Incomes.ToList();
+            var expenses = user.Expenses.ToList();
+
             return View(user);
-        }
+        }        
 
         public IActionResult Create()
         {

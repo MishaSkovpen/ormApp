@@ -52,6 +52,45 @@
         </dd>
     </dl>
 </div>
+<h4>Incomes</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Source</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var income in Model.Incomes)
+        {
+            <tr>
+                <td>@income.Amount</td>
+                <td>@income.Date.ToShortDateString()</td>
+                <td>@income.Source</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h4>Expenses</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Amount</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var expense in Model.Expenses)
+        {
+            <tr>
+                <td>@expense.Amount</td>
+                <td>@expense.Date.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.UserId" class="btn btn-warning">Edit</a> |
     <a asp-action="Index">Back to List</a>
